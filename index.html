@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Rotating Pixels</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap-5.3.0-dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <h1>Rotating Pixels</h1>
+    <div id="canvasContainer"></div>
+
+    <div id="blendMode" class="radio-group">
+        <label>ラジオボタンみほん: </label>
+        <input type="radio" name="blendMode" value="BLEND"> blend
+        <input type="radio" name="blendMode" value="ADD" checked> add
+        <input type="radio" name="blendMode" value="SCREEN"> screen
+    </div>
+    <div>
+        <input type="checkbox" id="trace" name="trace"> 残像
+        <!-- TODO: 厳密座標モード(rotator位置ではなく色素位置の大きさを反映) -->
+    </div>
+    <div class="slider" hidden> <input type="range" id="distance" min="1" max="200" value="40" step="1">
+        <label id="distanceLabel">distance: </label>
+    </div>
+    <div class="slider"> <input type="range" id="rotatorSize" min="10" max="200" value="40" step="1">
+        <label id="rotatorSizeLabel">rotatorSize: </label>
+    </div>
+    <div class="slider"> <input type="range" id="ballSize" min="2" max="120" value="30" step="1">
+        <label id="ballSizeLabel">ballSize: </label>
+    </div>
+    <div class="slider">
+        <input type="range" id="speed" name="speed" min="0" max="1" value="0.4" step="0.01">
+        <label id="speedLabel">speed: </label>
+    </div>
+    <div class="slider">
+        <input type="range" id="opacity" name="opacity" min="0" max="255" value="255" step="1">
+        <label id="opacityLabel">opacity: </label>
+    </div>
+    <div>
+        <div id="imageSelect" class="radio-group">
+            <label>入力画像: </label>
+            <input type="radio" name="image" value="vortex" checked>color vortex
+            <input type="radio" name="image" value="atori">倉鳥アトリ(<a
+                href="https://chat.openai.com/g/g-G5Z8IZbXu-cang-niao-atori" target="_blank">GPTs</a>)
+            <input type="radio" name="image" value="user" disabled>ユーザー選択画像
+            <input type="file" id="fileSelect">
+        </div>
+    </div>
+    <div class="gifSaveContainer">
+        <label>save GIF</label>
+        <button id="gifSave05" class="btn btn-primary">0.5 seconds</button>
+        <button id="gifSave1" class="btn btn-primary">1 seconds</button>
+        <button id="gifSave3" class="btn btn-primary">3 seconds</button>
+    </div>
+
+    <p>姉妹プロジェクト</p>
+    <a href="https://budoucha.github.io/bouncepixels">bouncepixels</a>
+
+    <script type="text/javascript" src="js/p5.js"></script>
+    <script type="module" src="js/sketch.js"></script>
+    <script type="text/javascript" src="bootstrap-5.3.0-dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
