@@ -34,7 +34,6 @@ const p = new p5(
             canvas.parent("canvasContainer")
         }
 
-
         p.setup = () => {
             p.pixelDensity(1)
             p.setFrameRate(60)
@@ -66,7 +65,6 @@ const p = new p5(
                 rotators.push(new Rotator(initOption))
             }
             console.log(rotators)
-
 
             /* ラベル初期化 */
             for (const item of sliderItems) {
