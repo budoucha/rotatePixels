@@ -139,7 +139,7 @@ const p = new p5(
         class Rotator {
             constructor(options) {
                 //角度
-                this.angle = 0
+                this.angle = Math.random() * Math.PI * 2
                 //角速度
                 this.speed = speed
 
