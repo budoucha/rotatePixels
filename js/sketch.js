@@ -203,8 +203,8 @@ const p = new p5(
                     p.fill(fill)
                     const radius = this.rotatorSize
                     const ballSize = this.ballSize * c / 100
-                    const x = this.position[0] + radius * Math.cos(+this.angle + i * Math.PI / 3)
-                    const y = this.position[1] + radius * Math.sin(+this.angle + i * Math.PI / 3)
+                    const x = this.position[0] + radius * Math.cos(+this.angle + i * Math.PI * 2 / 3)
+                    const y = this.position[1] + radius * Math.sin(+this.angle + i * Math.PI * 2 / 3)
                     p.ellipse(x, y, ballSize)
                 })
 
