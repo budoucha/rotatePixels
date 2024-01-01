@@ -30,6 +30,7 @@ const p = new p5(
             pixels = img.pixels
             canvas = p.createCanvas(width, img.height / img.width * width)
             canvas.parent("canvasContainer")
+            setRotators()
         }
 
         p.setup = () => {
