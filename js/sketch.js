@@ -14,7 +14,6 @@ const p = new p5(
         let rotatorSize = document.querySelector("#rotatorSize").value
         let ballSize = document.querySelector("#ballSize").value
         let speed = document.querySelector("#speed").value
-        const blendMode = Array.from(document.querySelectorAll("#blendMode input[type=radio]")).filter(option => option.checked)[0].value
 
         let pixels = []
 
