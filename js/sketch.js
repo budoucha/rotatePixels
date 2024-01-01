@@ -115,11 +115,12 @@ const p = new p5(
             rotatorNum = rotatorRows * rotatorColumns
 
             for (let i = 0; i < rotatorNum; i++) {
+                const position = [
+                    1 / 2 * distance + (i % rotatorColumns) * distance,
+                    1 / 2 * distance + Math.trunc(i * distance / rotatorColumns)
+                ]
                 const initOption = {
-                    position: [
-                        1 / 2 * distance + i % rotatorColumns,
-                        1 / 2 * distance + Math.trunc(i / rotatorColumns)
-                    ],
+                    position: position,
                     rotatorSize: rotatorSize,
                     ballSize: ballSize,
                 }
