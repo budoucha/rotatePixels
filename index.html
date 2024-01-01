@@ -15,7 +15,7 @@
     <div id="canvasContainer"></div>
 
     <div id="blendMode" class="radio-group">
-        <label>ラジオボタンみほん: </label>
+        <label>合成モード: </label>
         <input type="radio" name="blendMode" value="BLEND"> blend
         <input type="radio" name="blendMode" value="ADD" checked> add
         <input type="radio" name="blendMode" value="SCREEN"> screen
@@ -24,7 +24,7 @@
         <input type="checkbox" id="trace" name="trace"> 残像
         <!-- TODO: 厳密座標モード(rotator位置ではなく色素位置の大きさを反映) -->
     </div>
-    <div class="slider" hidden> <input type="range" id="distance" min="1" max="200" value="40" step="1">
+    <div class="slider"> <input type="range" id="distance" min="1" max="200" value="40" step="1">
         <label id="distanceLabel">distance: </label>
     </div>
     <div class="slider"> <input type="range" id="rotatorSize" min="10" max="200" value="40" step="1">

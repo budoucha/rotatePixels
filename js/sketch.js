@@ -57,6 +57,13 @@ const p = new p5(
                 labelElement.innerText = `${item}: \n${element.value}`
             }
 
+            /* 間隔の更新 */
+            document.querySelector("#distance").addEventListener("input", e => {
+                distance = document.querySelector("#distance").value
+                rotators.length = 0
+                setRotators()
+            })
+
             /* ファイル選択 */
             const handleFile = (e) => {
                 const file = e.target.files[0]
