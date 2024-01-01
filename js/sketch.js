@@ -140,6 +140,7 @@ const p = new p5(
 
                 //座標
                 this.position = options.position ?? [p.width / 2, p.height / 2]
+                this.initialPosition = [...this.position]
 
                 //縦横の番号を設定
                 // 隣の回転体と相互作用する何かを後で作る気がする
@@ -158,7 +159,9 @@ const p = new p5(
                 if (p.mouseIsPressed && mouseInCanvas()) {
                     this.position = [p.mouseX, p.mouseY]
                 }
-
+                else {
+                    this.position = [...this.initialPosition]
+                }
                 // スライダーの値を取得
                 for (const item of sliderItems) {
                     this[item] = document.querySelector(`#${item}`).value
