@@ -6,6 +6,7 @@ const p = new p5(
         const rotators = [] //縦横に等間隔に配置されるRotatorが入る
         let img
         let images = []
+        let pixels = []
 
         let rotatorNum
         let rotatorRows
@@ -14,8 +15,6 @@ const p = new p5(
         let rotatorSize = document.querySelector("#rotatorSize").value
         let ballSize = document.querySelector("#ballSize").value
         let speed = document.querySelector("#speed").value
-
-        let pixels = []
 
         p.preload = () => {
             images["vortex"] = p.loadImage("./images/image.png")
@@ -155,6 +154,7 @@ const p = new p5(
                     const yInCanvas = 0 < p.mouseY && p.mouseY < p.height
                     return xInCanvas && yInCanvas
                 }
+                // マウス押下
                 if (p.mouseIsPressed && mouseInCanvas()) {
                     this.position = [p.mouseX, p.mouseY]
                 }
