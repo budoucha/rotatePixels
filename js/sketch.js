@@ -117,7 +117,7 @@ const p = new p5(
         }
 
         const setRotators = () => {
-            rotatorRows = (p.width - 1 / 2 * distance) / distance
+            rotatorRows = (p.width - 1 / 2 * distance) / distance //端から半単位離す
             rotatorColumns = (p.height - 1 / 2 * distance) / distance
             rotatorNum = rotatorRows * rotatorColumns
 
