@@ -191,6 +191,8 @@ const p = new p5(
                 this.color.forEach((c, i) => {
                     let fill = [0, 0, 0]
                     fill[i] = c
+                    const opacity = +document.querySelector("#opacity").value
+                    fill.push(opacity)
                     p.fill(fill)
                     const radius = this.rotatorSize
                     const ballSize = this.ballSize * c / 100
