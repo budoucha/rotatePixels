@@ -8,8 +8,8 @@ const p = new p5(
         let images = []
 
         let rotatorNum
-        let rotatorNumByRow
-        let rotatorNumByColumn
+        let rotatorRows
+        let rotatorColumns
         let distance = document.querySelector("#distance").value
         let rotatorSize = document.querySelector("#rotatorSize").value
         let ballSize = document.querySelector("#ballSize").value
@@ -49,22 +49,8 @@ const p = new p5(
                 changeImageRoutine(selected)
             })
 
-            rotatorNumByRow = p.width / distance
-            rotatorNumByColumn = p.height / distance
-            rotatorNum = rotatorNumByRow * rotatorNumByColumn
             // 回転体初期化
-            //TODO: 座標の計算
-            // for (let i = 0; i < rotatorNum; i++) {
-            for (let i = 0; i < 1; i++) {
-                const initOption = {
-                    speed: 0.01,
-                    size: 10,
-                    rotatorSize: rotatorSize,
-                    ballSize: ballSize,
-                }
-                rotators.push(new Rotator(initOption))
-            }
-            console.log(rotators)
+            setRotators()
 
             /* ラベル初期化 */
             for (const item of sliderItems) {
@@ -123,6 +109,24 @@ const p = new p5(
             p.noStroke()
             p.ellipseMode(p.RADIUS)
             rotators.forEach(rotator => rotator.draw())
+        }
+
+        const setRotators = () => {
+            rotatorRows = (p.width - 1 / 2 * distance) / distance
+            rotatorColumns = (p.height - 1 / 2 * distance) / distance
+            rotatorNum = rotatorRows * rotatorColumns
+
+            for (let i = 0; i < rotatorNum; i++) {
+                const initOption = {
+                    position: [
+                        1 / 2 * distance + i % rotatorColumns,
+                        1 / 2 * distance + Math.trunc(i / rotatorColumns)
+                    ],
+                    rotatorSize: rotatorSize,
+                    ballSize: ballSize,
+                }
+                rotators.push(new Rotator(initOption))
+            }
         }
 
         class Rotator {
