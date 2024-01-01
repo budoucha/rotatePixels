@@ -124,7 +124,7 @@ const p = new p5(
             for (let i = 0; i < rotatorNum; i++) {
                 const position = [
                     1 / 2 * distance + (i % rotatorColumns) * distance,
-                    1 / 2 * distance + Math.trunc(i * distance / rotatorColumns)
+                    1 / 2 * distance + Math.trunc(i / rotatorColumns) * distance
                 ]
                 const initOption = {
                     position: position,
