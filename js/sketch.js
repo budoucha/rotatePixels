@@ -1,6 +1,7 @@
 const devMode = false
 
 const sliderItems = ["distance", "rotatorSize", "ballSize", "speed", "opacity"]
+const checkboxItems = ["trace"]
 const params = {}
 
 const p = new p5(
@@ -24,7 +25,16 @@ const p = new p5(
             p.pixelDensity(1)
             p.setFrameRate(60)
 
-            /* スライダ */
+            /* チェックボックス共通処理 */
+            for (const item of checkboxItems) {
+                const checkboxElement = document.getElementById(item)
+                checkboxElement.addEventListener("change", e => {
+                    params[item] = checkboxElement.checked
+                })
+                checkboxElement.dispatchEvent(new Event("change"))
+            }
+
+            /* スライダ共通処理 */
             for (const item of sliderItems) {
                 const sliderElement = document.getElementById(item)
                 const labelElement = document.getElementById(`${item}Label`)
@@ -80,8 +90,8 @@ const p = new p5(
 
         p.draw = () => {
             p.blendMode(p.BLEND)
-            if (document.querySelector("#trace").checked) {
-                p.background(16, 32)
+            if (params.trace) {
+                p.background(16, 16)
             } else {
                 p.background(16)
             }
