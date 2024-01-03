@@ -6,6 +6,10 @@ body {
     align-items: center;
 }
 
+canvas {
+    background-color: black;
+}
+
 input[type=range] {
     width: 20em;
     margin: 0 2em;
