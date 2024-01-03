@@ -156,6 +156,7 @@ const p = new p5(
                 //座標
                 this.position = options.position ?? [p.width / 2, p.height / 2]
                 this.initialPosition = [...this.position]
+                this.ballPositions = []
 
                 //縦横の番号を設定
                 // 隣の回転体と相互作用する何かを後で作る気がする
@@ -166,6 +167,14 @@ const p = new p5(
             }
             update() {
                 this.angle += +params.speed
+
+                const radius = params.rotatorSize
+                for (let i = 0; i < 3; i++) {
+                    this.ballPositions[i] = [
+                        this.position[0] + radius * Math.cos(+this.angle + i * Math.PI * 2 / 3),
+                        this.position[1] + radius * Math.sin(+this.angle + i * Math.PI * 2 / 3)
+                    ]
+                }
 
                 // 色取得用の整数座標
                 const positionIntX = Math.round(this.position[0])
@@ -188,10 +197,9 @@ const p = new p5(
                     fill[i] = c
                     fill.push(+params.opacity)
                     p.fill(fill)
-                    const radius = params.rotatorSize
+                    const x = this.ballPositions[i][0]
+                    const y = this.ballPositions[i][1]
                     const ballSize = params.ballSize * c / 100
-                    const x = this.position[0] + radius * Math.cos(+this.angle + i * Math.PI * 2 / 3)
-                    const y = this.position[1] + radius * Math.sin(+this.angle + i * Math.PI * 2 / 3)
                     p.ellipse(x, y, ballSize)
                 })
 
