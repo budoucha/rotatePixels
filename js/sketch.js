@@ -181,12 +181,12 @@ const p = new p5(
                 this.enabled = true
             }
             update() {
-                this.angle += +this.speed
-
                 // スライダーの値を取得
                 for (const item of sliderItems) {
                     this[item] = params[item]
                 }
+
+                this.angle += +this.speed
 
                 // 色取得用の整数座標
                 const positionIntX = Math.round(this.position[0])
