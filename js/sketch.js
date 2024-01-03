@@ -81,14 +81,13 @@ const p = new p5(
             fileSelectElement.addEventListener('change', handleFile)
 
             // GIF保存ボタン
-            document.querySelector("#gifSave05").addEventListener("click", e => {
-                p.saveGif('savedGIF.gif', 0.5, { delay: 3 })
+            document.querySelector("#gifSave1r").addEventListener("click", e => {
+                if (speed != 0) {
+                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / speed), { units: "frames", delay: 3 })
+                }
             })
-            document.querySelector("#gifSave1").addEventListener("click", e => {
+            document.querySelector("#gifSave1s").addEventListener("click", e => {
                 p.saveGif('savedGIF.gif', 1, { delay: 3 })
-            })
-            document.querySelector("#gifSave3").addEventListener("click", e => {
-                p.saveGif('savedGIF.gif', 3, { delay: 3 })
             })
             p.background(0)
         }
