@@ -157,6 +157,7 @@ const p = new p5(
                 this.position = options.position ?? [p.width / 2, p.height / 2]
                 this.initialPosition = [...this.position]
                 this.ballPositions = []
+                this.ballPositionsInt = []
 
                 //縦横の番号を設定
                 // 隣の回転体と相互作用する何かを後で作る気がする
@@ -169,24 +170,29 @@ const p = new p5(
                 this.angle += +params.speed
 
                 const radius = params.rotatorSize
+
+                const pixelIndexes = []
+                const pos2index = ([x, y]) => { return (x + y * img.width) * 4 }
+
                 for (let i = 0; i < 3; i++) {
                     this.ballPositions[i] = [
                         this.position[0] + radius * Math.cos(+this.angle + i * Math.PI * 2 / 3),
                         this.position[1] + radius * Math.sin(+this.angle + i * Math.PI * 2 / 3)
                     ]
+                    // 色取得用の整数座標
+                    this.ballPositionsInt[i] = [
+                        Math.round(this.ballPositions[i][0]),
+                        Math.round(this.ballPositions[i][1])
+                    ]
+
+                    pixelIndexes[i] = pos2index(this.ballPositionsInt[i])
                 }
 
-                // 色取得用の整数座標
-                const positionIntX = Math.round(this.position[0])
-                const positionIntY = Math.round(this.position[1])
-
-                // 現在位置の画素の色を取得
-                const pos2index = (x, y) => { return (x + y * img.width) * 4 }
-                const pixelIndex = pos2index(positionIntX, positionIntY)
+                // RGBそれぞれの座標の色を格納
                 this.color = [
-                    pixels[pixelIndex],
-                    pixels[pixelIndex + 1],
-                    pixels[pixelIndex + 2],
+                    pixels[pixelIndexes[0]],
+                    pixels[pixelIndexes[1] + 1],
+                    pixels[pixelIndexes[2] + 2],
                 ]
             }
             draw() {
