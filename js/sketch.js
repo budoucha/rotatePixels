@@ -132,7 +132,6 @@ const p = new p5(
             rotatorRows = Math.ceil((p.height - 1 / 2 * +params.distance) / +params.distance) //端から半単位離す
             rotatorColumns = Math.ceil((p.width - 1 / 2 * +params.distance) / +params.distance)
             rotatorNum = rotatorRows * rotatorColumns
-            console.log(rotatorNum, rotatorRows, rotatorColumns)
 
             for (let i = 0; i < rotatorNum; i++) {
                 const position = [
