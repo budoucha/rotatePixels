@@ -1,7 +1,7 @@
 const devMode = false
 
 const sliderItems = ["distance", "rotatorSize", "ballSize", "speed", "opacity"]
-const checkboxItems = ["trace"]
+const checkboxItems = ["trace", "useAngleSpeed"]
 const params = {}
 
 const p = new p5(
@@ -50,6 +50,15 @@ const p = new p5(
             document.querySelector("#distance").addEventListener("input", e => {
                 setRotators()
             })
+            /* 角速度の再設定 */
+            const angleSpeedElements = [document.querySelector("#rotatorSize"), document.querySelector("#speed")]
+            const changeAngleSpeed = () => {
+                // この係数はrotatorSizeの初期値にしておく
+                params.angleSpeed = 10 * params.speed / params.rotatorSize
+            }
+            angleSpeedElements.forEach(element => element.addEventListener("input", changeAngleSpeed))
+            changeAngleSpeed()
+
 
             // 画像切り替え
             const imageSelectElement = document.querySelector("#imageSelect")
@@ -77,11 +86,14 @@ const p = new p5(
             fileSelectElement.addEventListener('change', handleFile)
 
             // GIF保存ボタン
-            document.querySelector("#gifSave1r").addEventListener("click", e => {
-                if (params.speed != 0) {
-                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.speed), { units: "frames", delay: 3 })
+            const setSave1rButton = () => {
+                if (params.useAngleSpeed && params.angleSpeed != 0) {
+                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.angleSpeed), { units: "frames", delay: 3 })
+                } else if (params.speed != 0) {
+                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.speed), { units: "frames", delay: 3 }, { delay: 3 })
                 }
-            })
+            }
+            document.querySelector("#gifSave1r").addEventListener("click", setSave1rButton)
             document.querySelector("#gifSave1s").addEventListener("click", e => {
                 p.saveGif('savedGIF.gif', 1, { delay: 3 })
             })
@@ -172,6 +184,11 @@ const p = new p5(
                 this.enabled = true
             }
             update() {
+                if (params.useAngleSpeed) {
+                    this.angle -= params.angleSpeed
+                } else {
+                    this.angle -= params.speed
+                }
                 this.angle %= Math.PI * 2
                 const radius = params.rotatorSize
 
