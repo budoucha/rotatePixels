@@ -51,11 +51,18 @@ const p = new p5(
             // 回転体初期化
             setRotators()
 
-            /* ラベル初期化 */
+            /* スライダ */
             for (const item of sliderItems) {
-                const element = document.getElementById(item)
+                const sliderElement = document.getElementById(item)
                 const labelElement = document.getElementById(`${item}Label`)
-                labelElement.innerText = `${item}: \n${element.value}`
+                // 更新時
+                for (const item of sliderItems) {
+                    sliderElement.addEventListener("input", e => {
+                        labelElement.innerText = `${item}: \n${sliderElement.value}`
+                    })
+                }
+                // 初期化
+                sliderElement.dispatchEvent(new Event("input"))
             }
 
             /* 間隔の更新 */
@@ -213,11 +220,3 @@ const p = new p5(
     }
 )
 
-/* ラベル書き換え用 */
-for (const item of sliderItems) {
-    const element = document.getElementById(item)
-    const labelElement = document.getElementById(`${item}Label`)
-    element.addEventListener("input", e => {
-        labelElement.innerText = `${item}: \n${element.value}`
-    })
-}
