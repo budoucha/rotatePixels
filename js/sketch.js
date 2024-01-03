@@ -151,8 +151,6 @@ const p = new p5(
                 ]
                 const initOption = {
                     position: position,
-                    rotatorSize: rotatorSize,
-                    ballSize: ballSize,
                 }
                 rotators.push(new Rotator(initOption))
             }
@@ -162,12 +160,6 @@ const p = new p5(
             constructor(options) {
                 //角度
                 this.angle = Math.random() * Math.PI * 2
-                //角速度
-                this.speed = speed
-
-                //半径
-                this.rotatorSize = +rotatorSize
-                this.ballSize = +ballSize
 
                 //座標
                 this.position = options.position ?? [p.width / 2, p.height / 2]
@@ -181,12 +173,7 @@ const p = new p5(
                 this.enabled = true
             }
             update() {
-                // スライダーの値を取得
-                for (const item of sliderItems) {
-                    this[item] = params[item]
-                }
-
-                this.angle += +this.speed
+                this.angle += +params.speed
 
                 // 色取得用の整数座標
                 const positionIntX = Math.round(this.position[0])
@@ -213,10 +200,10 @@ const p = new p5(
                 this.color.forEach((c, i) => {
                     const fill = [0, 0, 0]
                     fill[i] = c
-                    fill.push(+this.opacity)
+                    fill.push(+params.opacity)
                     p.fill(fill)
-                    const radius = this.rotatorSize
-                    const ballSize = this.ballSize * c / 100
+                    const radius = params.rotatorSize
+                    const ballSize = params.ballSize * c / 100
                     const x = this.position[0] + radius * Math.cos(+this.angle + i * Math.PI * 2 / 3)
                     const y = this.position[1] + radius * Math.sin(+this.angle + i * Math.PI * 2 / 3)
                     p.ellipse(x, y, ballSize)
