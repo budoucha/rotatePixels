@@ -182,12 +182,6 @@ const p = new p5(
             }
             draw() {
                 if (!this.enabled) return
-
-                p.noStroke()
-                //合成モード適用
-                const blendMode = Array.from(document.querySelectorAll("#blendMode input[type=radio]")).filter(option => option.checked)[0].value
-                p.blendMode(p[blendMode])
-
                 //回転体を描画
                 this.color.forEach((c, i) => {
                     const fill = [0, 0, 0]
