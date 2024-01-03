@@ -99,13 +99,22 @@ const p = new p5(
             } else {
                 p.background(16)
             }
-            if (p.frameCount % 60 == 0) {
-                // console.log(`fps: ${p.frameRate()}`)
-            }
-
             // 速度を更新
             speed = document.querySelector("#speed").value
 
+            // 押下時の処理
+            const mouseInCanvas = () => {
+                const xInCanvas = 0 < p.mouseX && p.mouseX < p.width
+                const yInCanvas = 0 < p.mouseY && p.mouseY < p.height
+                return xInCanvas && yInCanvas
+            }
+            if (p.mouseIsPressed && mouseInCanvas()) {
+                rotators.forEach(rotator => rotator.enabled = false)
+                rotators[0].enabled = true
+                rotators[0].position = [p.mouseX, p.mouseY]
+            } else {
+                rotators.forEach(rotator => rotator.enabled = true)
+            }
             // ボールを更新
             rotators.forEach(rotator => rotator.update())
 
@@ -154,22 +163,12 @@ const p = new p5(
                 // 隣の回転体と相互作用する何かを後で作る気がする
                 // this.row = options.row ?? 0
                 // this.column = options.column ?? 0
+
+                this.enabled = true
             }
             update() {
                 this.angle += +this.speed
 
-                const mouseInCanvas = () => {
-                    const xInCanvas = 0 < p.mouseX && p.mouseX < p.width
-                    const yInCanvas = 0 < p.mouseY && p.mouseY < p.height
-                    return xInCanvas && yInCanvas
-                }
-                // マウス押下
-                if (p.mouseIsPressed && mouseInCanvas()) {
-                    this.position = [p.mouseX, p.mouseY]
-                }
-                else {
-                    this.position = [...this.initialPosition]
-                }
                 // スライダーの値を取得
                 for (const item of sliderItems) {
                     this[item] = document.querySelector(`#${item}`).value
@@ -189,6 +188,8 @@ const p = new p5(
                 ]
             }
             draw() {
+                if (!this.enabled) return
+
                 p.noStroke()
                 //合成モード適用
                 const blendMode = Array.from(document.querySelectorAll("#blendMode input[type=radio]")).filter(option => option.checked)[0].value
