@@ -197,10 +197,9 @@ const p = new p5(
 
                 //回転体を描画
                 this.color.forEach((c, i) => {
-                    let fill = [0, 0, 0]
+                    const fill = [0, 0, 0]
                     fill[i] = c
-                    const opacity = +document.querySelector("#opacity").value
-                    fill.push(opacity)
+                    fill.push(+this.opacity)
                     p.fill(fill)
                     const radius = this.rotatorSize
                     const ballSize = this.ballSize * c / 100
