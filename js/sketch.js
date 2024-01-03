@@ -184,7 +184,7 @@ const p = new p5(
                 this.enabled = true
             }
             update() {
-                if (params.useAngleSpeed) {
+                if (params.useRawSpeed) {
                     this.angle -= params.rawSpeed
                 } else {
                     this.angle -= params.speed
