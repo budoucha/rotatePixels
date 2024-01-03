@@ -122,6 +122,7 @@ const p = new p5(
                 rotators[0].enabled = true
                 rotators[0].position = [p.mouseX, p.mouseY]
             } else {
+                rotators[0].position = rotators[0].initialPosition
                 rotators.forEach(rotator => rotator.enabled = true)
             }
             // ボールを更新
