@@ -96,7 +96,7 @@ const p = new p5(
         p.draw = () => {
             p.blendMode(p.BLEND)
             if (document.querySelector("#trace").checked) {
-                p.background(16, 8)
+                p.background(16, 32)
             } else {
                 p.background(16)
             }
