@@ -61,13 +61,13 @@ const p = new p5(
 
 
             // 画像切り替え
-            const imageSelectElement = document.querySelector("#imageSelect")
-            imageSelectElement.addEventListener("change", e => {
-                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-                const selected = imageSelectOptions.filter(option => option.checked)[0].value
+            const selectedImageElement = document.querySelector("#selectedImage")
+            selectedImageElement.addEventListener("change", e => {
+                const selectedImageOptions = Array.from(document.querySelectorAll("#selectedImage input[type=radio]"))
+                const selected = selectedImageOptions.filter(option => option.checked)[0].value
                 changeImageRoutine(selected)
             })
-            imageSelectElement.dispatchEvent(new Event("change"))
+            selectedImageElement.dispatchEvent(new Event("change"))
 
             /* ファイル選択 */
             const handleFile = (e) => {
@@ -76,7 +76,7 @@ const p = new p5(
                     images["user"] = p.loadImage(URL.createObjectURL(file),
                         () => {
                             // ラジオボタンジャマーキャンセラー
-                            document.querySelector("#imageSelect>[name=image][value=user]").disabled = false
+                            document.querySelector("#selectedImage>[name=image][value=user]").disabled = false
                         })
                 } else {
                     console.log("Something went wrong.")
