@@ -14,29 +14,15 @@ const p = new p5(
         let rotatorNum
         let rotatorRows
         let rotatorColumns
-        let distance = document.querySelector("#distance").value
-        let rotatorSize = document.querySelector("#rotatorSize").value
-        let ballSize = document.querySelector("#ballSize").value
-        let speed = document.querySelector("#speed").value
 
         p.preload = () => {
             images["vortex"] = p.loadImage("./images/image.png")
             images["atori"] = p.loadImage("./images/kuratoriatori.png")
         }
 
-
         p.setup = () => {
             p.pixelDensity(1)
             p.setFrameRate(60)
-
-            // 画像切り替え
-            const imageSelectElement = document.querySelector("#imageSelect")
-            imageSelectElement.addEventListener("change", e => {
-                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-                const selected = imageSelectOptions.filter(option => option.checked)[0].value
-                changeImageRoutine(selected)
-            })
-            imageSelectElement.dispatchEvent(new Event("change"))
 
             /* スライダ */
             for (const item of sliderItems) {
@@ -50,12 +36,19 @@ const p = new p5(
                 // 初期化
                 sliderElement.dispatchEvent(new Event("input"))
             }
-
-            /* 間隔の更新 */
+            /* 間隔の更新時には回転体を再初期化する */
             document.querySelector("#distance").addEventListener("input", e => {
-                distance = document.querySelector("#distance").value
                 setRotators()
             })
+
+            // 画像切り替え
+            const imageSelectElement = document.querySelector("#imageSelect")
+            imageSelectElement.addEventListener("change", e => {
+                const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
+                const selected = imageSelectOptions.filter(option => option.checked)[0].value
+                changeImageRoutine(selected)
+            })
+            imageSelectElement.dispatchEvent(new Event("change"))
 
             /* ファイル選択 */
             const handleFile = (e) => {
@@ -75,8 +68,8 @@ const p = new p5(
 
             // GIF保存ボタン
             document.querySelector("#gifSave1r").addEventListener("click", e => {
-                if (speed != 0) {
-                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / speed), { units: "frames", delay: 3 })
+                if (params.speed != 0) {
+                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.speed), { units: "frames", delay: 3 })
                 }
             })
             document.querySelector("#gifSave1s").addEventListener("click", e => {
@@ -92,8 +85,6 @@ const p = new p5(
             } else {
                 p.background(16)
             }
-            // 速度を更新
-            speed = document.querySelector("#speed").value
 
             // 押下時の処理
             const mouseInCanvas = () => {
@@ -138,14 +129,15 @@ const p = new p5(
 
         const setRotators = () => {
             rotators.length = 0
-            rotatorRows = Math.ceil((p.height - 1 / 2 * distance) / distance) //端から半単位離す
-            rotatorColumns = Math.ceil((p.width - 1 / 2 * distance) / distance)
+            rotatorRows = Math.ceil((p.height - 1 / 2 * +params.distance) / +params.distance) //端から半単位離す
+            rotatorColumns = Math.ceil((p.width - 1 / 2 * +params.distance) / +params.distance)
             rotatorNum = rotatorRows * rotatorColumns
+            console.log(rotatorNum, rotatorRows, rotatorColumns)
 
             for (let i = 0; i < rotatorNum; i++) {
                 const position = [
-                    1 / 2 * distance + (i % rotatorColumns) * distance,
-                    1 / 2 * distance + Math.trunc(i / rotatorColumns) * distance
+                    1 / 2 * params.distance + (i % rotatorColumns) * params.distance,
+                    1 / 2 * params.distance + Math.trunc(i / rotatorColumns) * params.distance
                 ]
                 const initOption = {
                     position: position,
