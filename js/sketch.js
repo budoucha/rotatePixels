@@ -1,7 +1,7 @@
 const devMode = false
 
 const sliderItems = ["distance", "rotatorSize", "ballSize", "speed", "opacity"]
-const checkboxItems = ["trace", "useAngleSpeed"]
+const checkboxItems = ["trace", "useRawSpeed"]
 const params = {}
 
 const p = new p5(
@@ -51,13 +51,13 @@ const p = new p5(
                 setRotators()
             })
             /* 角速度の再設定 */
-            const angleSpeedElements = [document.querySelector("#rotatorSize"), document.querySelector("#speed")]
-            const changeAngleSpeed = () => {
+            const rawSpeedElements = [document.querySelector("#rotatorSize"), document.querySelector("#speed")]
+            const switchSpeedMode = () => {
                 // この係数はrotatorSizeの初期値にしておく
-                params.angleSpeed = 10 * params.speed / params.rotatorSize
+                params.rawSpeed = 10 * params.speed / params.rotatorSize
             }
-            angleSpeedElements.forEach(element => element.addEventListener("input", changeAngleSpeed))
-            changeAngleSpeed()
+            rawSpeedElements.forEach(element => element.addEventListener("input", switchSpeedMode))
+            switchSpeedMode()
 
 
             // 画像切り替え
@@ -87,8 +87,8 @@ const p = new p5(
 
             // GIF保存ボタン
             const setSave1rButton = () => {
-                if (params.useAngleSpeed && params.angleSpeed != 0) {
-                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.angleSpeed), { units: "frames", delay: 3 })
+                if (params.useRawSpeed && params.rawSpeed != 0) {
+                    p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.rawSpeed), { units: "frames", delay: 3 })
                 } else if (params.speed != 0) {
                     p.saveGif('savedGIF.gif', Math.round(Math.PI * 2 / params.speed), { units: "frames", delay: 3 }, { delay: 3 })
                 }
@@ -185,7 +185,7 @@ const p = new p5(
             }
             update() {
                 if (params.useAngleSpeed) {
-                    this.angle -= params.angleSpeed
+                    this.angle -= params.rawSpeed
                 } else {
                     this.angle -= params.speed
                 }
