@@ -1,4 +1,4 @@
 node_modules/
 .parcel-cache/
 test.js
-.settings.json
+settings.json
