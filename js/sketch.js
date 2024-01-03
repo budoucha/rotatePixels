@@ -40,16 +40,14 @@ const p = new p5(
             p.pixelDensity(1)
             p.setFrameRate(60)
 
-            const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
-            const selected = imageSelectOptions.filter(option => option.checked)[0].value
-            changeImageRoutine(selected)
-
             // 画像切り替え
-            document.querySelector("#imageSelect").addEventListener("change", e => {
+            const imageSelectElement = document.querySelector("#imageSelect")
+            imageSelectElement.addEventListener("change", e => {
                 const imageSelectOptions = Array.from(document.querySelectorAll("#imageSelect input[type=radio]"))
                 const selected = imageSelectOptions.filter(option => option.checked)[0].value
                 changeImageRoutine(selected)
             })
+            imageSelectElement.dispatchEvent(new Event("change"))
 
             // 回転体初期化
             setRotators()
