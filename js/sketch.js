@@ -211,12 +211,6 @@ const p = new p5(
 
             }
         }
-
-        p.mmouseClicked = () => {
-            console.log(
-                rotators[0]
-            )
-        }
     }
 )
 
