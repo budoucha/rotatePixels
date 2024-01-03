@@ -1,3 +1,5 @@
+const devMode = true
+
 const sliderItems = ["distance", "rotatorSize", "ballSize", "speed", "opacity"]
 
 const p = new p5(
@@ -127,6 +129,12 @@ const p = new p5(
             p.noStroke()
             p.ellipseMode(p.RADIUS)
             rotators.forEach(rotator => rotator.draw())
+
+            if (devMode) {
+                p.fill(255)
+                p.textSize(16)
+                p.text(`fps: ${Math.round(p.frameRate())}`, 10, 20)
+            }
         }
 
         const setRotators = () => {
