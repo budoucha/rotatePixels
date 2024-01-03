@@ -49,9 +49,6 @@ const p = new p5(
             })
             imageSelectElement.dispatchEvent(new Event("change"))
 
-            // 回転体初期化
-            setRotators()
-
             /* スライダ */
             for (const item of sliderItems) {
                 const sliderElement = document.getElementById(item)
