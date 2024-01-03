@@ -61,7 +61,6 @@ const p = new p5(
             /* 間隔の更新 */
             document.querySelector("#distance").addEventListener("input", e => {
                 distance = document.querySelector("#distance").value
-                rotators.length = 0
                 setRotators()
             })
 
@@ -118,6 +117,7 @@ const p = new p5(
         }
 
         const setRotators = () => {
+            rotators.length = 0
             rotatorRows = Math.ceil((p.height - 1 / 2 * distance) / distance) //端から半単位離す
             rotatorColumns = Math.ceil((p.width - 1 / 2 * distance) / distance)
             rotatorNum = rotatorRows * rotatorColumns
