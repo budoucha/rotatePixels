@@ -56,11 +56,9 @@ const p = new p5(
                 const sliderElement = document.getElementById(item)
                 const labelElement = document.getElementById(`${item}Label`)
                 // 更新時
-                for (const item of sliderItems) {
                     sliderElement.addEventListener("input", e => {
                         labelElement.innerText = `${item}: \n${sliderElement.value}`
                     })
-                }
                 // 初期化
                 sliderElement.dispatchEvent(new Event("input"))
             }
