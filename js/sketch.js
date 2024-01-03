@@ -159,11 +159,6 @@ const p = new p5(
                 this.ballPositions = []
                 this.ballPositionsInt = []
 
-                //縦横の番号を設定
-                // 隣の回転体と相互作用する何かを後で作る気がする
-                // this.row = options.row ?? 0
-                // this.column = options.column ?? 0
-
                 this.enabled = true
             }
             update() {
