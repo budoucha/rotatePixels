@@ -172,8 +172,7 @@ const p = new p5(
                 this.enabled = true
             }
             update() {
-                this.angle += +params.speed
-
+                this.angle %= Math.PI * 2
                 const radius = params.rotatorSize
 
                 const pixelIndexes = []
