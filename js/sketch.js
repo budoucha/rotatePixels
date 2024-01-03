@@ -24,17 +24,6 @@ const p = new p5(
             images["atori"] = p.loadImage("./images/kuratoriatori.png")
         }
 
-        /* 画像を変更したらしたら毎回行う */
-        const changeImageRoutine = (selected) => {
-            img = images[selected]
-            const width = Math.min(window.innerWidth, 640)
-            img.resize(width, 0)
-            img.loadPixels()
-            pixels = img.pixels
-            canvas = p.createCanvas(width, img.height / img.width * width)
-            canvas.parent("canvasContainer")
-            setRotators()
-        }
 
         p.setup = () => {
             p.pixelDensity(1)
@@ -133,6 +122,18 @@ const p = new p5(
                 p.textSize(16)
                 p.text(`fps: ${Math.round(p.frameRate())}`, 10, 20)
             }
+        }
+
+        /* 画像を変更したらしたら毎回行う */
+        const changeImageRoutine = (selected) => {
+            img = images[selected]
+            const width = Math.min(window.innerWidth, 640)
+            img.resize(width, 0)
+            img.loadPixels()
+            pixels = img.pixels
+            canvas = p.createCanvas(width, img.height / img.width * width)
+            canvas.parent("canvasContainer")
+            setRotators()
         }
 
         const setRotators = () => {
