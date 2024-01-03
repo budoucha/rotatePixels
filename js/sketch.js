@@ -1,6 +1,7 @@
 const devMode = true
 
 const sliderItems = ["distance", "rotatorSize", "ballSize", "speed", "opacity"]
+const params = {}
 
 const p = new p5(
     p => {
@@ -58,9 +59,10 @@ const p = new p5(
                 const sliderElement = document.getElementById(item)
                 const labelElement = document.getElementById(`${item}Label`)
                 // 更新時
-                    sliderElement.addEventListener("input", e => {
-                        labelElement.innerText = `${item}: \n${sliderElement.value}`
-                    })
+                sliderElement.addEventListener("input", e => {
+                    labelElement.innerText = `${item}: \n${sliderElement.value}`
+                    params[item] = sliderElement.value
+                })
                 // 初期化
                 sliderElement.dispatchEvent(new Event("input"))
             }
@@ -184,7 +186,7 @@ const p = new p5(
 
                 // スライダーの値を取得
                 for (const item of sliderItems) {
-                    this[item] = document.querySelector(`#${item}`).value
+                    this[item] = params[item]
                 }
 
                 // 色取得用の整数座標
