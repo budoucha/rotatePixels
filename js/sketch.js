@@ -1,6 +1,7 @@
 const devMode = false
 
 const sliderItems = ["distance", "rotatorSize", "ballSize", "speed", "opacity"]
+const radioItems = ["blendMode", "selectedImage"]
 const checkboxItems = ["trace", "useRawSpeed"]
 const params = {}
 
@@ -24,6 +25,18 @@ const p = new p5(
         p.setup = () => {
             p.pixelDensity(1)
             p.setFrameRate(60)
+
+            /* ラジオボタン共通処理 */
+            for (const item of radioItems) {
+                const radioElement = document.querySelector(`#${item}`)
+                radioElement.addEventListener("change", e => {
+                    const options = Array.from(document.querySelectorAll(`#${item} input[type=radio]`))
+                    params[item] = options.filter(option => option.checked)[0].value
+                })
+                // 初期化
+                radioElement.dispatchEvent(new Event("change"))
+                console.log(params[item])
+            }
 
             /* チェックボックス共通処理 */
             for (const item of checkboxItems) {
@@ -58,16 +71,9 @@ const p = new p5(
             }
             rawSpeedElements.forEach(element => element.addEventListener("input", switchSpeedMode))
             switchSpeedMode()
-
-
-            // 画像切り替え
-            const selectedImageElement = document.querySelector("#selectedImage")
-            selectedImageElement.addEventListener("change", e => {
-                const selectedImageOptions = Array.from(document.querySelectorAll("#selectedImage input[type=radio]"))
-                const selected = selectedImageOptions.filter(option => option.checked)[0].value
-                changeImageRoutine(selected)
-            })
-            selectedImageElement.dispatchEvent(new Event("change"))
+            // 画像切り替え時はchangeImageRoutineを呼ぶ 
+            document.querySelector("#selectedImage").addEventListener("change", changeImageRoutine)
+            changeImageRoutine()
 
             /* ファイル選択 */
             const handleFile = (e) => {
@@ -108,20 +114,6 @@ const p = new p5(
                 p.background(16)
             }
 
-            // 押下時の処理
-            const mouseInCanvas = () => {
-                const xInCanvas = 0 < p.mouseX && p.mouseX < p.width
-                const yInCanvas = 0 < p.mouseY && p.mouseY < p.height
-                return xInCanvas && yInCanvas
-            }
-            if (p.mouseIsPressed && mouseInCanvas()) {
-                rotators.forEach(rotator => rotator.enabled = false)
-                rotators[0].enabled = true
-                rotators[0].position = [p.mouseX, p.mouseY]
-            } else {
-                rotators[0].position = rotators[0].initialPosition
-                rotators.forEach(rotator => rotator.enabled = true)
-            }
             // ボールを更新
             rotators.forEach(rotator => rotator.update())
 
@@ -141,8 +133,8 @@ const p = new p5(
         }
 
         /* 画像を変更したらしたら毎回行う */
-        const changeImageRoutine = (selected) => {
-            img = images[selected]
+        const changeImageRoutine = () => {
+            img = images[params.selectedImage]
             const width = Math.min(window.innerWidth, 640)
             img.resize(width, 0)
             img.loadPixels()
