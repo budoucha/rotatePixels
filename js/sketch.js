@@ -119,8 +119,7 @@ const p = new p5(
 
             // ボールを描画
             //合成モード適用
-            const blendMode = Array.from(document.querySelectorAll("#blendMode input[type=radio]")).filter(option => option.checked)[0].value
-            p.blendMode(p[blendMode])
+            p.blendMode(p[params.blendMode])
             p.noStroke()
             p.ellipseMode(p.RADIUS)
             rotators.forEach(rotator => rotator.draw())
