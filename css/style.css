@@ -22,7 +22,12 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 0.4em;
+}
+
+div.footer {
+    margin: 1.6em 0;
 }
 
 #canvasContainer {
