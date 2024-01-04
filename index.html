@@ -19,6 +19,8 @@
         <input type="radio" name="blendMode" value="BLEND"> blend
         <input type="radio" name="blendMode" value="ADD" checked> add
         <input type="radio" name="blendMode" value="SCREEN"> screen
+    </div>
+    <div class="checkbox-group">
         <input type="checkbox" id="trace" name="trace"> 残像
         <input type="checkbox" id="useRawSpeed" checked> 角速度から速度に切替
     </div>
@@ -39,15 +41,15 @@
         <input type="range" id="opacity" name="opacity" min="0" max="255" value="216" step="1">
         <label id="opacityLabel">opacity: </label>
     </div>
+    <div id="selectedImage" class="radio-group">
+        <label>入力画像: </label>
+        <input type="radio" name="image" value="vortex" checked>color vortex
+        <input type="radio" name="image" value="atori"><a
+            href="https://chat.openai.com/g/g-G5Z8IZbXu-cang-niao-atori" target="_blank">倉鳥アトリ</a>
+        <input type="radio" name="image" value="user" disabled>選択画像
+    </div>
     <div>
-        <div id="selectedImage" class="radio-group">
-            <label>入力画像: </label>
-            <input type="radio" name="image" value="vortex" checked>color vortex
-            <input type="radio" name="image" value="atori">倉鳥アトリ(<a
-                href="https://chat.openai.com/g/g-G5Z8IZbXu-cang-niao-atori" target="_blank">GPTs</a>)
-            <input type="radio" name="image" value="user" disabled>ユーザー選択画像
-            <input type="file" id="fileSelect">
-        </div>
+        <input type="file" id="fileSelect">
     </div>
     <div class="gifSaveContainer">
         <label>save GIF</label>
