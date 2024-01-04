@@ -75,6 +75,51 @@ const p = new p5(
             document.querySelector("#selectedImage").addEventListener("change", changeImageRoutine)
             changeImageRoutine()
 
+            document.querySelector("#copyParams").addEventListener("click", e => {
+                const paramsString = JSON.stringify(params)
+                const isValid = isValidParams(paramsString)
+                if (!isValid[0]) {
+                    notify(`Error: ${isValid[1]}`, "error")
+                    return
+                }
+                navigator.clipboard.writeText(paramsString).then(() => {
+                    notify("Copied!", "copied")
+                }).catch(err => {
+                    notify("Failed to copy", "error")
+                })
+            })
+
+            document.querySelector("#pasteParams").addEventListener("click", async (e) => {
+                // クリップボード取得
+                const getClipboard = async () => {
+                    const text = await navigator.clipboard.readText()
+                    return text
+                }
+
+                let clipboard = ""
+                try {
+                    clipboard = await getClipboard()
+                } catch (err) {
+                    notify("Failed to get clipboard", "error")
+                    return
+                }
+                console.log(clipboard)
+
+                const isValid = isValidParams(clipboard)
+                if (!isValid[0]) {
+                    notify(`Error: ${isValid[1]}`, "error")
+                    return
+                }
+                // パラメータの上書き
+                console.log(params)
+                Object.assign(params, JSON.parse(clipboard))
+                console.log(params)
+
+                // input要素の更新
+                reflectToInputs()
+                notify("Pasted!", "pasted")
+            })
+
             /* ファイル選択 */
             const handleFile = (e) => {
                 const file = e.target.files[0]
@@ -223,6 +268,41 @@ const p = new p5(
 
             }
         }
+
+        const notify = (message, status) => {
+            const overlayElement = document.querySelector(".overlay")
+            overlayElement.innerHTML = message
+            overlayElement.classList.add("active", status)
+            setTimeout(() => {
+                overlayElement.classList.remove("active", status)
+            }, 1000)
+        }
+
+        const isValidParams = (input) => {
+            let inputObj = {}
+            try {
+                inputObj = JSON.parse(input)
+            } catch (err) {
+                return [false, "not Object"]
+            }
+            if (Object.keys(inputObj).length == 0) {
+                return [false, "empty Object"]
+            }
+            return [true, "OK"]
+        }
+
+        const reflectToInputs = () => {
+            sliders.forEach(slider => {
+                document.getElementById(slider).value = params[slider]
+            })
+            radios.forEach(radio => {
+                document.getElementById(radio).value = params[radio]
+            })
+            checkboxes.forEach(checkbox => {
+                document.getElementById(checkbox).checked = params[checkbox]
+            })
+        }
+
     }
 )
 
